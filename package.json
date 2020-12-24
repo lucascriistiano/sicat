@@ -1,0 +1,30 @@
+{
+  "name": "sicat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc & node dist/index.js",
+    "dev": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucascriistiano/sicat.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucascriistiano/sicat/issues"
+  },
+  "homepage": "https://github.com/lucascriistiano/sicat#readme",
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "puppeteer": "^5.5.0",
+    "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.2"
+  }
+}
