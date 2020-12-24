@@ -1,16 +1,97 @@
+<style>
+  .person-container {
+    display: flex;
+  }
+
+  td,
+  th {
+    border: 1px solid black;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  .person-item {
+    flex: 50%;
+    margin-right: 50px;
+  }
+
+  .conta {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .item-container {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .item {
+    display: inline-block;
+    font-weight: 300;
+    margin: 5px;
+    width: 200px;
+  }
+
+  .consumidor {
+    text-align: center;
+  }
+
+  .entidade {
+    font: 24px;
+  }
+
+  .multas {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .valor {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+
+  hr {
+    color: black;
+    height: 1px;
+  }
+
+  .contain {
+    margin-bottom: 10px;
+  }
+
+  .conta {
+    font: 20px;
+  }
+
+  .idConsumidor {
+    margin: 50px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .vencimento {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+
 <div class="person-item">
-  <div>
-    <div>
-      <h5>Entidade Comunitária sem fins lucrativos</h5>
-      <h4>CNPJ: 01.104.138/0001-01 - CGF: Isento</h4>
-    </div>
-    <div>
-      <h4>CONTA D'AGUA</h4>
-    </div>
+  <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
+  <div class="entidade">
+    <span>Entidade Comunitária sem fins lucrativos</span>
+  </div>
+  <div class="conta">
+    <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
+    <span>CONTA D'AGUA</span>
   </div>
 
-  <div>
-    <table>
+  <div class="table-1">
+    <table border="1">
       <tr>
         <th>MUNICÍPIO</th>
         <th>HIDRÔMETRO</th>
@@ -28,9 +109,8 @@
     </table>
   </div>
 
-  <h3>IDENTIFICAÇÃO DO CONSUMIDOR</h3>
-
-  <div>  
+  <div class="consumidor">
+    <span class="idConsumidor">IDENTIFICAÇÃO DO CONSUMIDOR</span>
     <div class="item-container">
       <div class="item">
         CPF: {{ cpf }}
@@ -41,46 +121,137 @@
     </div>
   </div>
 
-  <h3>{{name}}</h3>
-
-  <div class="item-container">
-    <div class="item">
-      Sítio Traíras, S/N - ZR<br/>
-      63.635-000 - Milhã-CE
-    </div>
-    <div class="item">
-      PROFISSÃO <br/>
-      {{ profession }}
+  <div class="contain">
+    <span>{{name}}</span>
+    <hr />
+    <div class="container">
+      <div class="item">
+        Sítio Traíras, S/N - ZR<br />
+        63.635-000 - Milhã-CE
+      </div>
+      <div class="item">
+        PROFISSÃO <br />
+        {{ profession }}
+      </div>
     </div>
   </div>
 
   <div>
-    <table>
-      <tr>
-        <th>CÓD</th>
-        <th>DESCRIÇÃO</th>
-        <th>X</th>
-        <th>VALOR (R$)</th>
-        <th>LEITURA ANTERIOR</th>
-        <th>DATA DA LEITURA</th>
-      </tr>
-      <tr>
-        <td>01</td>
-        <td>TAXA MENSAL</td>
-        <td></td>
-        <td>20,00</td>
-        <td></td>
-        <td>____/____/_______</td>
-      </tr>
-      <tr>
-        <td>02</td>
-        <td>SÓCIO</td>
-        <td></td>
-        <td></td>
-        <td>LEITURA ATUAL</td>
-        <td>DATA DA LEITURA</td>
-      </tr>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>CÓD</th>
+          <th>DESCRIÇÃO</th>
+          <th>X</th>
+          <th>VALOR (R$)</th>
+          <th>LEITURA ANTERIOR</th>
+          <th>DATA DA LEITURA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>TAXA MENSAL</td>
+          <td></td>
+          <td>20,00</td>
+          <td></td>
+          <td>____/____/_______</td>
+        </tr>
+        <tr>
+          <td>02</td>
+          <td>SÓCIO</td>
+          <td></td>
+          <td></td>
+          <td>LEITURA ATUAL</td>
+          <td>DATA DA LEITURA</td>
+        </tr>
+        <tr>
+          <td>03</td>
+          <td>NÃO SÓCIO</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>____/____/_______</td>
+        </tr>
+        <tr>
+          <td>04</td>
+          <td>EXCESSO CONS.</td>
+          <td></td>
+          <td></td>
+          <td>CONSUMO DO MÊS</td>
+          <td>DATA DE CONSUMO</td>
+        </tr>
+        <tr>
+          <td>05</td>
+          <td>MULTAS</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>06</td>
+          <td>SERVIÇOS</td>
+          <td></td>
+          <td></td>
+          <td>EXCESSO DE CONSUMO</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>07</td>
+          <td>VALOR TOTAL</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>08</td>
+          <td>CONSUMO PERMITIDO POR MES</td>
+          <td>20M<sup>3</sup></td>
+          <td></td>
+          <td>30M<sup>3</sup></td>
+          <td></td>
+        </tr>
+      </tbody>
     </table>
-    <p>MULTAS POR CONTA EM ATRASO, SERÃO COBRADAS NA FATURA DOS MESES SEGUINTES</p>
+    <span class="multas">MULTAS POR CONTA EM ATRASO, SERÃO COBRADAS NA FATURA DOS MESES SEGUINTES</span>
   </div>
+  <div class="vencimento">
+    <span>VENCIMENTO ____/____/______</span>
+    <span>TOTAL A PAGAR R$________</span>
+  </div>
+  <div class="entidade">
+    <span>AUTENTICAÇÃO NO VERSO</span>
+  </div>
+
+  <hr />
+  <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
+  <div class="entidade">
+    <span>Entidade Comunitária sem fins lucrativos</span>
+  </div>
+  <div class="conta">
+    <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
+    <span>CONTA D'AGUA</span>
+  </div>
+  <div class="valor">
+    <span class="item-valor">VENCIMENTO ____/____/______</span>
+    <span class="item-valor">TOTAL A PAGAR_______________</span>
+  </div>
+  <p class="consumidor">IDENTIFICAÇÃO DO CONSUMIDOR</p>
+  <div class="contain">
+    <span>{{name}}</span>
+    <hr />
+    <div class="container">
+      <div class="item">
+        Sítio Traíras, S/N - ZR<br />
+        63.635-000 - Milhã-CE
+      </div>
+      <div class="item">
+        LOCALIZAÇÃO <br />
+        {{ location }}
+      </div>
+    </div>
+  </div>
+
 </div>

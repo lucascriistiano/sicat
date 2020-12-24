@@ -73,6 +73,7 @@ async function createPDF(data: IData) {
 
 	var options: PDFOptions = {
 		format: 'A4',
+		printBackground: true,
 		landscape: true,
 		margin: {
 			top: "10px",
