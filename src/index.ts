@@ -1,102 +1,32 @@
-import fs from "fs";
-import path from "path";
-import puppeteer, { PDFOptions } from 'puppeteer';
-import handlebars from "handlebars";
+import express from 'express';
+import { listClients } from './services/ClientService';
+import { generatePDF } from './services/ReportService';
 
-const data: IData = {
-	people: [
-		{
-			'name': 'Kilvia Pereira Moura'.toUpperCase(),
-			'cpf': '111.111.111-11',
-			'rg': '11.111.111',
-			'address': '',
-			'profession': 'Agricultor(a)',
-			'hidrometer': '415513',
-			'location': '1',
-		},
-		{
-			'name': 'Lucas Cristiano C Dantas'.toUpperCase(),
-			'cpf': '222.222.222-22',
-			'rg': '11.111.111',
-			'address': '',
-			'profession': 'Agricultor(a)',
-			'hidrometer': '12345',
-			'location': '2',
-		},
-		// {
-		// 	'name': 'Bruno Pereira',
-		// 	'cpf': '333.333.333-33',
-		// 	'rg': '11.111.111',
-		// 	'address': '',
-		// 	'profession': 'Agricultor',
-		// 	'hidrometer': '54321',
-		// 	'location': '3',
-		// },
-		// {
-		// 	'name': 'Kilvia Pereira',
-		// 	'cpf': '444.444.444-44',
-		// 	'rg': '11.111.111',
-		// 	'address': '',
-		// 	'profession': 'Agricultor',
-		// 	'hidrometer': '54321',
-		// 	'location': '3',
-		// }
-  ]
-};
+const app = express();
 
-interface IPerson {
-  name: string;
-  cpf: string;
-  rg: string;
-  address: string;
-  profession: string;
-  hidrometer: string;
-  location: string;
-}
+app.use(express.json());
 
-interface IData {
-  people: IPerson[]
-}
+const PORT = 8000;
 
-async function createPDF(data: IData) {
-	var personHtml = fs.readFileSync(path.join(process.cwd(), 'template/partials/person.hbs'), 'utf8');
-	handlebars.registerPartial('person', personHtml);
-	
-	var templateHtml = fs.readFileSync(path.join(process.cwd(), 'template/main.hbs'), 'utf8');
-	var template = handlebars.compile(templateHtml);
-	var html = template(data);
+app.get('/api/clients', (req, res) => {
+  listClients()
+    .then(clients => res.send(clients))
+    .catch(error => res.status(500).send({ error: error }));
+});
 
-	// var milis = new Date().getTime();
+app.post('/api/reports/clients', (req, res) => {
+	listClients()
+	.then(clients => generatePDF({ clients: clients, hasOddLength: clients.length % 2 !== 0 }))
+	.then((pdfPath) => {
+		// const file = `${__dirname}`;
+		const file = pdfPath;
+		res.download(file);
+	})
+	.catch(error => res.status(500).send({ error: error }));
+});
 
-	// var pdfPath = path.join('pdf', `${data.name}-${milis}.pdf`);
-	var pdfPath = path.join('pdf', 'document.pdf');
+app.get('/healthCheck', (req, res) => {
+  res.send({ version: '1.0.0' });
+});
 
-	var options: PDFOptions = {
-		format: 'A4',
-		printBackground: true,
-		landscape: true,
-		margin: {
-			top: "10px",
-			bottom: "10px",
-			left: "30px",
-			right: "30px"
-		},
-		path: pdfPath
-	};
-
-	const browser = await puppeteer.launch({
-		args: ['--no-sandbox'],
-		headless: true
-	});
-
-	var page = await browser.newPage();
-	
-	await page.goto(`data:text/html;charset=UTF-8,${html}`, {
-		waitUntil: 'networkidle0'
-	});
-
-	await page.pdf(options);
-	await browser.close();
-};
-
-createPDF(data);
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

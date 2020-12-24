@@ -1,25 +1,33 @@
 <style>
-  .person-container {
-    display: flex;
+  .client-item {
+    margin-right: 10px;
+    flex: 1 0 40%;
+    display: inline-block;
   }
 
-  td,
-  th {
+  td, th {
     border: 1px solid black;
+  }
+
+  th, tr {
+    font-size: 12px;
   }
 
   table {
     border-collapse: collapse;
   }
 
-  .person-item {
-    flex: 50%;
-    margin-right: 50px;
+  .header {
+    font-size: 14px;
   }
 
   .conta {
     display: flex;
     justify-content: space-between;
+  }
+
+  .autenticacao {
+    font-size: 10px;
   }
 
   .item-container {
@@ -37,10 +45,6 @@
 
   .consumidor {
     text-align: center;
-  }
-
-  .entidade {
-    font: 24px;
   }
 
   .multas {
@@ -80,17 +84,19 @@
   }
 </style>
 
-<div class="person-item">
-  <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
-  <div class="entidade">
-    <span>Entidade Comunitária sem fins lucrativos</span>
-  </div>
-  <div class="conta">
-    <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
-    <span>CONTA D'AGUA</span>
+<div class="client-item">
+  <div class="header">
+    <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
+    <div>
+      <span>Entidade Comunitária sem fins lucrativos</span>
+    </div>
+    <div class="conta">
+      <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
+      <span>CONTA D'AGUA</span>
+    </div>
   </div>
 
-  <div class="table-1">
+  <div>
     <table border="1">
       <tr>
         <th>MUNICÍPIO</th>
@@ -219,24 +225,28 @@
   </div>
   <div class="vencimento">
     <span>VENCIMENTO ____/____/______</span>
-    <span>TOTAL A PAGAR R$________</span>
+    <span>TOTAL A PAGAR R$____________</span>
   </div>
-  <div class="entidade">
-    <span>AUTENTICAÇÃO NO VERSO</span>
+  <div class="autenticacao">
+    AUTENTICAÇÃO NO VERSO
   </div>
 
   <hr />
-  <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
-  <div class="entidade">
-    <span>Entidade Comunitária sem fins lucrativos</span>
+
+  <div class="header">
+    <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
+    <div>
+      <span>Entidade Comunitária sem fins lucrativos</span>
+    </div>
+    <div class="conta">
+      <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
+      <span>CONTA D'AGUA</span>
+    </div>
   </div>
-  <div class="conta">
-    <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
-    <span>CONTA D'AGUA</span>
-  </div>
+
   <div class="valor">
     <span class="item-valor">VENCIMENTO ____/____/______</span>
-    <span class="item-valor">TOTAL A PAGAR_______________</span>
+    <span class="item-valor">TOTAL A PAGAR R$____________</span>
   </div>
   <p class="consumidor">IDENTIFICAÇÃO DO CONSUMIDOR</p>
   <div class="contain">
