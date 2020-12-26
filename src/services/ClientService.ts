@@ -1,50 +1,70 @@
-export interface IClient {
+import { MongoClient, ObjectID } from "mongodb";
+import { config } from "../config";
+
+export interface ClientToSave {
   name: string;
   cpf: string;
   rg: string;
-  address: string;
-  profession: string;
-  hidrometer: string;
   location: string;
+  hydrometer: string;
 }
 
-export const listClients: () => Promise<IClient[]> = async () => {
-  return [
-		{
-			'name': 'Kilvia Pereira',
-			'cpf': '111.111.111-11',
-			'rg': '11.111.111',
-			'address': '',
-			'profession': 'Agricultor(a)',
-			'hidrometer': '415513',
-			'location': '1',
-		},
-		{
-			'name': 'Lucas Cristiano',
-			'cpf': '222.222.222-22',
-			'rg': '11.111.111',
-			'address': '',
-			'profession': 'Agricultor(a)',
-			'hidrometer': '12345',
-			'location': '2',
-		},
-		{
-			'name': 'Bruno Pereira',
-			'cpf': '333.333.333-33',
-			'rg': '11.111.111',
-			'address': '',
-			'profession': 'Agricultor',
-			'hidrometer': '54321',
-			'location': '3',
-		},
-		// {
-		// 	'name': 'Maria Luzia',
-		// 	'cpf': '444.444.444-44',
-		// 	'rg': '11.111.111',
-		// 	'address': '',
-		// 	'profession': 'Agricultor',
-		// 	'hidrometer': '54321',
-		// 	'location': '3',
-		// }
-  ]
+export interface Client {
+  _id: string;
+  name: string;
+  cpf: string;
+  rg: string;
+  location: string;
+  hydrometer: string;
+}
+
+const uri = `mongodb://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_HOST}:${config.DB_PORT}?retryWrites=true&w=majority`;
+const client = new MongoClient(uri);
+
+const connectionPromise = (collectionName: string) =>
+  client
+    .connect()
+    .then((client) => client.db("sicat"))
+    .then((database) => database.collection(collectionName));
+
+export const listClients: () => Promise<Client[]> = async () => {
+  return connectionPromise("clients").then((collection) =>
+    collection.find().toArray()
+  );
+};
+
+export const saveClientList: (
+  clientsToSave: ClientToSave[]
+) => Promise<Client> = async (clientsToSave: ClientToSave[]) => {
+  return connectionPromise("clients")
+    .then((collection) => collection.insertMany(clientsToSave))
+    .then((result) => result.ops[0]);
+};
+
+export const saveClient: (client: ClientToSave) => Promise<Client> = async (
+  clientToSave: ClientToSave
+) => {
+  return connectionPromise("clients")
+    .then((collection) => collection.insertOne(clientToSave))
+    .then((result) => result.ops[0]);
+};
+
+export const updateClient: (client: Client) => Promise<number> = async (
+  clientToUpdate: Client
+) => {
+  const objId = new ObjectID(clientToUpdate._id);
+  return connectionPromise("clients")
+    .then((collection) =>
+      collection.updateOne({ _id: objId }, { $set: clientToUpdate })
+    )
+    .then((result) => result.modifiedCount);
+};
+
+export const deleteClient: (clientId: string) => Promise<boolean> = async (
+  clientId: string
+) => {
+  const objId = new ObjectID(clientId);
+  return connectionPromise("clients")
+    .then((collection) => collection.deleteOne({ _id: objId }))
+    .then((result) => (result.deletedCount === 1 ? true : false));
 };

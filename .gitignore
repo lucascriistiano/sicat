@@ -2,3 +2,5 @@ dist/
 node_modules/
 pdf/
 yarn.lock
+.env
+yarn-error.log

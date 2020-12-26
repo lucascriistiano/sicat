@@ -2,25 +2,31 @@ import fs from "fs";
 import path from "path";
 import puppeteer, { PDFOptions } from 'puppeteer';
 import handlebars from "handlebars";
-import { IClient, listClients } from "./ClientService";
+import { Client } from "./ClientService";
 
 interface IData {
-	clients: IClient[],
+	clients: Client[],
 	hasOddLength: boolean
 }
 
-export const generatePDF = async (data: IData) => {
-	var clientHtml = fs.readFileSync(path.join(process.cwd(), 'template/partials/client.hbs'), 'utf8');
+export interface IFilePath {
+	path: string;
+	filename: string;
+}
+
+export const generatePDF: (data: IData) => Promise<IFilePath> = async (data: IData) => {
+	const clientHtml = fs.readFileSync(path.join(process.cwd(), 'template/partials/client.hbs'), 'utf8');
 	handlebars.registerPartial('client', clientHtml);
 	
-	var templateHtml = fs.readFileSync(path.join(process.cwd(), 'template/main.hbs'), 'utf8');
-	var template = handlebars.compile(templateHtml);
-	var html = template(data);
+	const templateHtml = fs.readFileSync(path.join(process.cwd(), 'template/main.hbs'), 'utf8');
+	const template = handlebars.compile(templateHtml);
+	const html = template(data);
 
-	var milis = new Date().getTime();
-	var pdfPath = path.join('pdf', `report-${milis}.pdf`);
+	const milis = new Date().getTime();
+	const filename = `${milis}-relatorio.pdf`;
+	const pdfPath = path.join('pdf', filename);
 
-	var options: PDFOptions = {
+	const options: PDFOptions = {
 		format: 'A4',
 		landscape: true,
 		margin: {
@@ -29,7 +35,8 @@ export const generatePDF = async (data: IData) => {
 			left: "30px",
 			right: "30px"
 		},
-		path: pdfPath
+		path: pdfPath,
+		printBackground: true,
 	};
 
 	const browser = await puppeteer.launch({
@@ -37,7 +44,7 @@ export const generatePDF = async (data: IData) => {
 		headless: true
 	});
 
-	var page = await browser.newPage();
+	const page = await browser.newPage();
 	
 	await page.goto(`data:text/html;charset=UTF-8,${html}`, {
 		waitUntil: 'networkidle0'
@@ -46,5 +53,8 @@ export const generatePDF = async (data: IData) => {
 	await page.pdf(options);
   await browser.close();
   
-  return pdfPath;
+  return {
+		path: pdfPath,
+		filename,
+	}
 };

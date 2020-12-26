@@ -43,10 +43,6 @@
     width: 200px;
   }
 
-  .consumidor {
-    text-align: center;
-  }
-
   .multas {
     font-size: 12px;
     font-weight: 400;
@@ -71,10 +67,11 @@
     font: 20px;
   }
 
-  .idConsumidor {
-    margin: 50px;
+  .consumidor-title {
+    margin: 5px;
     font-weight: 700;
     font-size: 16px;
+    text-align: center;
   }
 
   .vencimento {
@@ -88,7 +85,7 @@
   <div class="header">
     <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
     <div>
-      <span>Entidade Comunitária sem fins lucrativos</span>
+      <span>Entidade Comunitária Sem Fins Lucrativos</span>
     </div>
     <div class="conta">
       <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
@@ -107,7 +104,7 @@
       </tr>
       <tr>
         <td>MILHÃ</td>
-        <td>12345</td>
+        <td>{{ hydrometer }}</td>
         <td>10/10/2003</td>
         <td></td>
         <td>____/____/_______</td>
@@ -115,15 +112,14 @@
     </table>
   </div>
 
-  <div class="consumidor">
-    <span class="idConsumidor">IDENTIFICAÇÃO DO CONSUMIDOR</span>
-    <div class="item-container">
-      <div class="item">
-        CPF: {{ cpf }}
-      </div>
-      <div class="item">
-        RG: {{ rg }}
-      </div>
+  <div class="consumidor-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
+
+  <div class="item-container">
+    <div class="item">
+      CPF: {{ cpf }}
+    </div>
+    <div class="item">
+      RG: {{ rg }}
     </div>
   </div>
 
@@ -137,7 +133,7 @@
       </div>
       <div class="item">
         PROFISSÃO <br />
-        {{ profession }}
+        Agricultor(a)
       </div>
     </div>
   </div>
@@ -236,7 +232,7 @@
   <div class="header">
     <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
     <div>
-      <span>Entidade Comunitária sem fins lucrativos</span>
+      <span>Entidade Comunitária Sem Fins Lucrativos</span>
     </div>
     <div class="conta">
       <span>CNPJ: 01.104.138/0001-01 - CGF: Isento</span>
@@ -248,7 +244,9 @@
     <span class="item-valor">VENCIMENTO ____/____/______</span>
     <span class="item-valor">TOTAL A PAGAR R$____________</span>
   </div>
-  <p class="consumidor">IDENTIFICAÇÃO DO CONSUMIDOR</p>
+
+  <div class="consumidor-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
+
   <div class="contain">
     <span>{{name}}</span>
     <hr />
@@ -263,5 +261,6 @@
       </div>
     </div>
   </div>
+  <br/>
 
 </div>
