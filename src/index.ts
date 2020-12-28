@@ -25,9 +25,7 @@ app.post("/api/clients", (req, res) => {
 
 app.post("/api/reports/clients/download", (req, res) => {
   listClients()
-    .then((clients) =>
-      generatePDF({ clients: clients, hasOddLength: clients.length % 2 !== 0 })
-    )
+    .then((clients) => generatePDF(clients))
     .then((pdfPath: IFilePath) => res.download(pdfPath.path))
     .catch((error) => res.status(500).send({ error: error }));
 });

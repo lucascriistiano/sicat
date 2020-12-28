@@ -34,16 +34,17 @@
     font-weight: bold;
     font-size: 16px;
     text-align: center;
+    display: flex;
   }
 
   .item {
     display: inline-block;
+    flex: 1;
     font-weight: 300;
     margin: 5px;
-    width: 200px;
   }
 
-  .multas {
+  .warning {
     font-size: 12px;
     font-weight: 400;
   }
@@ -67,8 +68,8 @@
     font: 20px;
   }
 
-  .consumidor-title {
-    margin: 5px;
+  .consumer-title {
+    margin: 15px 0 15px 0;
     font-weight: 700;
     font-size: 16px;
     text-align: center;
@@ -78,6 +79,28 @@
     margin: 10px 0;
     display: flex;
     justify-content: space-between;
+  }
+
+  .dotted {
+    border: none;
+    border-bottom: 1px dotted gray;
+  }
+
+  .dashed {
+    border: none;
+    border-bottom: 1px dashed gray;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .section-separator {
+    margin: 15px 0 15px 0;
   }
 </style>
 
@@ -94,7 +117,7 @@
   </div>
 
   <div>
-    <table border="1">
+    <table border="1" style="width: 100%;">
       <tr>
         <th>MUNICÍPIO</th>
         <th>HIDRÔMETRO</th>
@@ -103,51 +126,56 @@
         <th>EMISSÃO</th>
       </tr>
       <tr>
-        <td>MILHÃ</td>
-        <td>{{ hydrometer }}</td>
-        <td>10/10/2003</td>
-        <td></td>
-        <td>____/____/_______</td>
+        <td class="center">MILHÃ</td>
+        <td class="center">{{ hydrometer }}</td>
+        <td class="center">10/10/2003</td>
+        <td class="center"></td>
+        <td class="center">____/____/_______</td>
       </tr>
     </table>
   </div>
 
-  <div class="consumidor-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
-
-  <div class="item-container">
-    <div class="item">
-      CPF: {{ cpf }}
-    </div>
-    <div class="item">
-      RG: {{ rg }}
-    </div>
-  </div>
+  <div class="consumer-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
 
   <div class="contain">
-    <span>{{name}}</span>
-    <hr />
-    <div class="container">
+    Nome: <span class="dashed">{{name}}</span>
+
+    <div class="item-container">
+      <div class="item">
+        CPF: <span>{{#if cpf}}{{ cpf }}{{else}}______ . ______ . ______ - ___ {{/if}}</span>
+      </div>
+      <div class="item">
+        RG: <span>{{#if rg}}{{ rg }}{{else}} _____________ {{/if}}</span>
+      </div>
+    </div>
+
+    <div class="item-container">
       <div class="item">
         Sítio Traíras, S/N - ZR<br />
         63.635-000 - Milhã-CE
       </div>
       <div class="item">
-        PROFISSÃO <br />
+        PROFISSÃO<br />
         Agricultor(a)
+      </div>
+      <div class="item">
+        LOCALIZAÇÃO<br />
+        {{ location }}
       </div>
     </div>
   </div>
 
   <div>
-    <table border="1">
+    <table border="1" style="width: 100%;">
       <thead>
         <tr>
           <th>CÓD</th>
           <th>DESCRIÇÃO</th>
           <th>X</th>
           <th>VALOR (R$)</th>
-          <th>LEITURA ANTERIOR</th>
-          <th>DATA DA LEITURA</th>
+          <th></th>
+          <th colspan="2" class="center">LEITURA ANTERIOR</th>
+          <th colspan="2" class="center">DATA DA LEITURA</th>
         </tr>
       </thead>
       <tbody>
@@ -155,17 +183,19 @@
           <td>01</td>
           <td>TAXA MENSAL</td>
           <td></td>
-          <td>20,00</td>
+          <td class="center">20,00</td>
           <td></td>
-          <td>____/____/_______</td>
+          <td colspan="2"></td>
+          <td colspan="2" class="center">____/____/_______</td>
         </tr>
         <tr>
           <td>02</td>
           <td>SÓCIO</td>
           <td></td>
           <td></td>
-          <td>LEITURA ATUAL</td>
-          <td>DATA DA LEITURA</td>
+          <td></td>
+          <td colspan="2" class="center strong">LEITURA ATUAL</td>
+          <td colspan="2" class="center strong">DATA DA LEITURA</td>
         </tr>
         <tr>
           <td>03</td>
@@ -173,15 +203,17 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>____/____/_______</td>
+          <td colspan="2"></td>
+          <td colspan="2" class="center">____/____/_______</td>
         </tr>
         <tr>
           <td>04</td>
           <td>EXCESSO CONS.</td>
           <td></td>
           <td></td>
-          <td>CONSUMO DO MÊS</td>
-          <td>DATA DE CONSUMO</td>
+          <td></td>
+          <td colspan="2" class="center strong">CONSUMO DO MÊS</td>
+          <td colspan="2" class="center strong">DIAS DE CONSUMO</td>
         </tr>
         <tr>
           <td>05</td>
@@ -189,15 +221,17 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>30</td>
+          <td colspan="2"></td>
+          <td colspan="2" class="center">30</td>
         </tr>
         <tr>
           <td>06</td>
           <td>SERVIÇOS</td>
           <td></td>
           <td></td>
-          <td>EXCESSO DE CONSUMO</td>
           <td></td>
+          <td colspan="2" class="center strong">EXCESSO DE CONSUMO</td>
+          <td colspan="2"></td>
         </tr>
         <tr>
           <td>07</td>
@@ -205,19 +239,21 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
         </tr>
         <tr>
           <td>08</td>
-          <td>CONSUMO PERMITIDO POR MES</td>
-          <td>20M<sup>3</sup></td>
+          <td colspan="3">CONSUMO PERMITIDO POR MÊS</td>
           <td></td>
-          <td>30M<sup>3</sup></td>
+          <td class="center">20M<sup>3</sup></td>
+          <td></td>
+          <td class="center">30M<sup>3</sup></td>
           <td></td>
         </tr>
       </tbody>
     </table>
-    <span class="multas">MULTAS POR CONTA EM ATRASO, SERÃO COBRADAS NA FATURA DOS MESES SEGUINTES</span>
+    <div class="warning center">MULTAS POR CONTA EM ATRASO SERÃO COBRADAS NA FATURA DOS MESES SEGUINTES</div>
   </div>
   <div class="vencimento">
     <span>VENCIMENTO ____/____/______</span>
@@ -227,7 +263,7 @@
     AUTENTICAÇÃO NO VERSO
   </div>
 
-  <hr />
+  <hr class="section-separator dotted" />
 
   <div class="header">
     <strong>ASSOCIAÇÃO OLIMPIO NONATO</strong>
@@ -245,22 +281,20 @@
     <span class="item-valor">TOTAL A PAGAR R$____________</span>
   </div>
 
-  <div class="consumidor-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
+  <div class="consumer-title">IDENTIFICAÇÃO DO CONSUMIDOR</div>
 
   <div class="contain">
-    <span>{{name}}</span>
-    <hr />
-    <div class="container">
+    Nome: <span class="dashed">{{name}}</span>
+    <div class="item-container">
       <div class="item">
         Sítio Traíras, S/N - ZR<br />
         63.635-000 - Milhã-CE
       </div>
+      <div class="item"></div>
       <div class="item">
         LOCALIZAÇÃO <br />
         {{ location }}
       </div>
     </div>
   </div>
-  <br/>
-
 </div>
