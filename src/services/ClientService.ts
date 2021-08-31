@@ -7,6 +7,7 @@ export interface ClientToSave {
   rg: string;
   location: string;
   hydrometer: string;
+  active: boolean;
 }
 
 export interface Client {
@@ -16,6 +17,7 @@ export interface Client {
   rg: string;
   location: string;
   hydrometer: string;
+  active: boolean;
 }
 
 const uri = `mongodb://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_HOST}:${config.DB_PORT}?retryWrites=true&w=majority`;
